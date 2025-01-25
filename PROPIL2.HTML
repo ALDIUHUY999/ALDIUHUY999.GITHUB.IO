@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna Elegan</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #6d7a86;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #495057;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .profile-card {
+            background-color: rgb(149, 147, 147);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .profile-img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+            border: 4px solid #495057; /* Menggunakan warna abu-abu tua */
+        }
+
+        #name {
+            color: #495057; /* Menggunakan warna abu-abu tua untuk nama */
+        }
+
+        button {
+            background-color: #6c757d;
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a6268;
+        }
+
+        .dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h3 {
+            margin-top: 0;
+            color: #6c757d;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-gallery img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #6c757d;
+        }
+
+        .upload-container {
+            margin-top: 20px;
+        }
+
+        .upload-container input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Profil Saya</h1>
+        <button id="theme-toggle">🌙 Ganti Tema</button>
+    </header>
+    <div class="container">
+        <div class="profile-card">
+            <img src="https://wallpapers.com/images/hd/rimuru-pfp-with-braided-hair-hrx8f9te7ux66n01.jpg" alt="Foto Profil" class="profile-img">
+            <h2 id="name">Aldi Herawan</h2>
+            <p id="email">aldiherawan666@gmail.com</p>
+            <p id="bio"><strong>WELLCOME TO MY PROFIL!</strong></p>
+            <button onclick="editProfile()">✏️ Edit Profil</button>
+        </div>
+
+        <div class="section">
+            <h3>Riwayat Pekerjaan</h3>
+            <p id="experience">1. PEMAIN EPEP<br>2. ELIT CEES<br>3. PENJOKI CS</p>
+        </div>
+
+        <div class="section">
+            <h3>Pendidikan</h3>
+            <p id="education">1. ELIT CEES<br>2. PERGURUAN DK<br>3. UNIVERSITAS RUOK</p>
+        </div>
+
+        <div class="section">
+            <h3>Keterampilan</h3>
+            <p id="skills">1. HUGO STYLE<br>2. BRAZIL STYLE<br>3. GLOWOL RUOK</p>
+        </div>
+
+        <div class="upload-container">
+            <h3>Unggah Foto dan Sertifikat</h3>
+            <input type="file" id="file-input" accept="image/*" multiple>
+            <button onclick="uploadFiles()">📤 Unggah</button>
+        </div>
+
+        <div class="section">
+            <h3>Galeri Foto dan Sertifikat</h3>
+            <div class="image-gallery" id="image-gallery"></div>
+        </div>
+    </div>
+
+    <script>
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const fileInput = document.getElementById('file-input');
+        const imageGallery = document.getElementById('image-gallery');
+
+        themeToggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        function editProfile() {
+            const name = prompt("Masukkan nama pengguna:", document.getElementById('name').textContent);
+            const email = prompt("Masukkan email:", document.getElementById('email').textContent);
+            const bio = prompt("Masukkan bio:", document.getElementById('bio').textContent);
+            const experience = prompt("Masukkan riwayat pekerjaan:", document.getElementById('experience').textContent);
+            const education = prompt("Masukkan pendidikan:", document.getElementById('education').textContent);
+            const skills = prompt("Masukkan keterampilan:", document.getElementById('skills').textContent);
+
+            if (name) {
+                document.getElementById('name').textContent = name;
+            }
+            if (email) {
+                document.getElementById('email').textContent = email;
+            }
+            if (bio) {
+                document.getElementById('bio').textContent = bio;
+            }
+            if (experience) {
+                document.getElementById('experience').textContent = experience;
+            }
+            if (education) {
+                document.getElementById('education').textContent = education;
+            }
+            if (skills) {
+                document.getElementById('skills').textContent = skills;
+            }
+        }
+
+        function uploadFiles() {
+            const files = fileInput.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.onload = function() {
+                    URL.revokeObjectURL(img.src); // Bebaskan memori
+                }
+                imageGallery.appendChild(img);
+            }
+            fileInput.value = ''; // Kosongkan input setelah unggahan
+        }
+    </script>
+</body>
+</html>
